@@ -10,7 +10,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_09_184321) do
+ActiveRecord::Schema.define(version: 2020_01_16_183135) do
+
+  create_table "quizzes", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "img", default: "", null: false
+    t.integer "duration", default: 0, null: false
+    t.string "difficulty", default: "beginner", null: false
+    t.integer "num_of_questions", default: 0, null: false
+    t.integer "quizzed", default: 0, null: false
+    t.boolean "collaborative", default: true, null: false
+    t.boolean "personal", default: false, null: false
+    t.integer "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["title"], name: "index_quizzes_on_title"
+    t.index ["user_id"], name: "index_quizzes_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "first_name", limit: 35, null: false
@@ -23,4 +39,5 @@ ActiveRecord::Schema.define(version: 2020_01_09_184321) do
     t.index ["username"], name: "index_users_on_username"
   end
 
+  add_foreign_key "quizzes", "users"
 end
