@@ -8,6 +8,8 @@ class CreateQuestions < ActiveRecord::Migration[6.0]
       t.string 'answerOne', null: false
       t.string 'answerTwo', null: false
       t.string 'answerThree', null: false
+      t.belongs_to :quiz, foreign_key: true
+
       t.timestamps
     end
   end

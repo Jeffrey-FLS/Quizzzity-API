@@ -40,7 +40,36 @@ class Api::V1::QuizzesController < ApplicationController
         user: User.all.sample
     )
 
+
     if quiz.save
+      params[:questions].map do |question|
+          Question.create(
+              question: question[:question],
+              questionType: question[:questionType],
+              singleMultiple: question[:singleMultiple],
+              correctAnswer: question[:correctAnswer],
+              answerOne: question[:answerOne],
+              answerTwo: question[:answerTwo],
+              answerThree: question[:answerThree],
+              quiz: quiz
+          )
+
+          #t.string 'question', null: false
+          #t.string 'questionType', null: false
+          #t.string 'singleMultiple', null: false
+          #t.string 'correctAnswer', null: false
+          #t.string 'answerOne', null: false
+          #t.string 'answerTwo', null: false
+          #t.string 'answerThree', null: false
+          #t.belongs_to :quiz, foreign_key: true
+              #question_type: question[:questionType],
+              #question: question[:question],
+              #answer: question[:answer],
+              #choices: question[:choices],
+              #point_value: question[:points],
+              #assignment: assignment
+          end
+
       render json: quiz, status: :ok
     else
       render json: {errors: quiz.errors.full_messages[0]}
