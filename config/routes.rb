@@ -4,6 +4,8 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :quizzes
       resources :users
+
+      post "/create-quiz", to: "quizzes#create"
     end
   end
 
