@@ -27,9 +27,29 @@ class Api::V1::QuizzesController < ApplicationController
     #quiz = Quiz.new(
     #    title: params[:]
     #)
-    #
 
-    render json:params
+    quiz = Quiz.create(
+        title: params[:quiz][:title],
+        img: params[:quiz][:img],
+        duration: params[:quiz][:duration],
+        difficulty: params[:quiz][:difficulty],
+        num_of_questions: params[:quiz][:num_of_questions],
+        quizzed: params[:quiz][:quizzed],
+        collaborative: params[:quiz][:collaborative],
+        personal: params[:quiz][:personal],
+        user: User.all.sample
+    )
+
+    if quiz.save
+      render json: quiz, status: :ok
+    else
+      render json: {errors: quiz.errors.full_messages[0]}
+    end
+
+    #puts "TITLE IS" + params[:quiz][:title]
+    #puts params[:questions]
+
+    #render json:params
   end
 
 
