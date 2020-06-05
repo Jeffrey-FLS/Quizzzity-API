@@ -17,12 +17,14 @@ class Api::V1::UsersController < ApplicationController
 
   # POST /api/v1/users
   def create
-    @user = User.create(user_params)
+    @user = User.new(user_params)
 
     if @user.save
       redirect_to user_path(@user)
     else
-      flash[:errors] = @user.errors.full_messages
+      # flash[:errors] = @user.errors.full_messages
+      # render :json => [{ :error => "Create User Failed" }], :status => 304
+      render json: {errors: quiz.errors.full_messages[0]}
       redirect_to new_user_path
     end
   end
@@ -66,7 +68,7 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:username, :password, :first_name, :last_name)
+    params.require(:user).permit( :first_name, :last_name, :email, :username, :password )
   end
 
 end
