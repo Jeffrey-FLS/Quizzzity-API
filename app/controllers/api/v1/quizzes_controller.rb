@@ -1,4 +1,3 @@
-
 class Api::V1::QuizzesController < ApplicationController
 
   # GET /quizzes
