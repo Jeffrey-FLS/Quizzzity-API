@@ -3,6 +3,10 @@ class Api::V1::UsersController < ApplicationController
 
   before_action :get_user, only: [:show, :edit, :update, :destroy]
 
+  def console_msg(msg) 
+    puts "\n #{msg} \n "
+  end
+
   # GET /api/v1/users
   def index
     @users = User.all
@@ -17,15 +21,19 @@ class Api::V1::UsersController < ApplicationController
 
   # POST /api/v1/users
   def create
-    @user = User.create!(user_params)
+    @user = User.create(user_params)
 
     if @user.save
       # redirect_to user_path(@user)
     else
       # flash[:errors] = @user.errors.full_messages
       # render :json => [{ :error => "Create User Failed" }], :status => 304
-      render json: {errors: @user.errors.full_messages[0]}
+      # render json: {errors: @user.errors.full_messages[0]}
       # redirect_to new_user_path
+
+      console_msg(@user.errors.full_messages)
+
+      # puts "\n #{@user.errors.full_messages} \n "
     end
   end
 
@@ -46,7 +54,8 @@ class Api::V1::UsersController < ApplicationController
   # PATCH/PUT /api/v1/users/:id
   def update
     if @user.update(user_params)
-      flash[:notifications] = ["UPDATED"]
+      puts "Record User Updated"
+      # flash[:notifications] = ["UPDATED"]
       # redirect_to user_path(@user)
     else
       flash[:errors] = @user.errors.full_messages

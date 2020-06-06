@@ -27,7 +27,7 @@ class Api::V1::QuizzesController < ApplicationController
     #    title: params[:]
     #)
 
-    quiz = Quiz.create(
+    quiz = Quiz.create!(
         title: params[:quiz][:title],
         img: params[:quiz][:img],
         duration: params[:quiz][:duration],
