@@ -8,7 +8,7 @@ class User < ApplicationRecord
 
   # Securing Validations
   validates :first_name, :last_name, presence: true, length: { maximum: 35 }
-  validates :username, presence: true, length: { within: 8..25 },
+  validates :username, presence: true, length: { within: 5..25 },
             uniqueness: true
   validates :email, presence: true, length: { maximum: 100 }, format: EMAIL_REGEX,
                    uniqueness: true
