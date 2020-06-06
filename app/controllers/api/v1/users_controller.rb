@@ -17,15 +17,15 @@ class Api::V1::UsersController < ApplicationController
 
   # POST /api/v1/users
   def create
-    @user = User.new(user_params)
+    @user = User.create!(user_params)
 
     if @user.save
-      redirect_to user_path(@user)
+      # redirect_to user_path(@user)
     else
       # flash[:errors] = @user.errors.full_messages
       # render :json => [{ :error => "Create User Failed" }], :status => 304
-      render json: {errors: quiz.errors.full_messages[0]}
-      redirect_to new_user_path
+      render json: {errors: @user.errors.full_messages[0]}
+      # redirect_to new_user_path
     end
   end
 
@@ -47,10 +47,10 @@ class Api::V1::UsersController < ApplicationController
   def update
     if @user.update(user_params)
       flash[:notifications] = ["UPDATED"]
-      redirect_to user_path(@user)
+      # redirect_to user_path(@user)
     else
       flash[:errors] = @user.errors.full_messages
-      redirect_to edit_user_path
+      # redirect_to edit_user_path
     end
   end
 
@@ -58,7 +58,7 @@ class Api::V1::UsersController < ApplicationController
   def destroy
     @user.destroy
     flash[:notifications] = ["User deleted successfully"]
-    redirect_to users_path
+    # redirect_to users_path
   end
 
   private
