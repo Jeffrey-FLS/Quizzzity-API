@@ -1,11 +1,28 @@
+# require 'colorize'
+# require 'shared_functions.rb'
+# load 'shared_functions.rb'
+require 'shared_functions'
 
 class Api::V1::UsersController < ApplicationController
 
   before_action :get_user, only: [:show, :edit, :update, :destroy]
 
-  def console_msg(msg) 
-    puts "\n #{msg} \n "
-  end
+  include Shared
+
+  # def console_msg(msg, type) 
+
+  #   puts "\n "
+
+  #   case type
+  #   when "normal"
+  #    return "#{msg}".colorize(:blue)
+  #   else
+  #     return "none"
+  #   end
+
+  #   puts "\n "
+  #   # puts "\n #{msg} \n ".red
+  # end
 
   # GET /api/v1/users
   def index
@@ -31,7 +48,8 @@ class Api::V1::UsersController < ApplicationController
       # render json: {errors: @user.errors.full_messages[0]}
       # redirect_to new_user_path
 
-      console_msg(@user.errors.full_messages)
+      console_msg("normal", @user.errors.full_messages)
+      # warn "hello"
 
       # puts "\n #{@user.errors.full_messages} \n "
     end
