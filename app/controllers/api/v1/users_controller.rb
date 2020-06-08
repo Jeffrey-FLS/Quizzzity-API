@@ -43,15 +43,8 @@ class Api::V1::UsersController < ApplicationController
     if @user.save
       # redirect_to user_path(@user)
     else
-      # flash[:errors] = @user.errors.full_messages
       # render :json => [{ :error => "Create User Failed" }], :status => 304
-      # render json: {errors: @user.errors.full_messages[0]}
-      # redirect_to new_user_path
-
-      console_msg("normal", @user.errors.full_messages)
-      # warn "hello"
-
-      # puts "\n #{@user.errors.full_messages} \n "
+      console_msg("info", @user.errors.full_messages[0])
     end
   end
 

@@ -1,21 +1,31 @@
-
-require 'colorize'  
+require 'colorize'
 
 module Shared
-    def console_msg(level, msg) 
+  def console_msg(level, msg)
 
-        # puts "JEELLLOOOOO"
-        puts "\n "
-    
-        case level
-        when "normal"
-        #  puts "HEELLLOOOO".colorize(:blue)
-         puts "#{msg}".colorize(:blue)
-        else
-          puts "WHHYYY"
-        end
-    
-        puts "\n "
-        # puts "\n #{msg} \n ".red
-      end   
+    symbols = {
+        "info" => "\u24D8",
+        "confirm" => "\u2713",
+        "warn" => "\u26A0",
+        "error" => "\u2622"
+    }
+
+    puts "\n "
+
+    case level
+    when "info"
+      puts "\t  #{symbols.fetch(level)} #{msg}".colorize(:light_blue).bold
+    when "confirm"
+      # puts "\t \u2713 #{msg}".colorize(:light_blue).bold
+      puts "\t #{symbols.fetch(level)} #{msg}".colorize(:light_blue).bold
+    when "warn"
+      puts "\t  #{symbols.fetch(level)} #{msg}".colorize(:yellow).bold
+    when "error"
+      puts "\t #{symbols.fetch(level)} #{msg}".colorize(:light_red).bold
+    else
+      puts "\t Level input does not match".colorize(:green).bold
+    end
+
+    puts "\n "
+  end
 end
