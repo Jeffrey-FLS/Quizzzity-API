@@ -9,25 +9,11 @@ class Api::V1::UsersController < ApplicationController
 
   include Shared
 
-  # def console_msg(msg, type) 
-
-  #   puts "\n "
-
-  #   case type
-  #   when "normal"
-  #    return "#{msg}".colorize(:blue)
-  #   else
-  #     return "none"
-  #   end
-
-  #   puts "\n "
-  #   # puts "\n #{msg} \n ".red
-  # end
-
   # GET /api/v1/users
   def index
     @users = User.all
     render json: @users, status: 200
+    console_msg("info", "All Users Indexed")
   end
 
   # GET /api/v1/users/new
@@ -41,10 +27,11 @@ class Api::V1::UsersController < ApplicationController
     @user = User.create(user_params)
 
     if @user.save
-      # redirect_to user_path(@user)
+      render json: {success: "Welcome to Quizzzity, #{@user.username}"}, status: 200
+      console_msg("success", "User was successfully created")
     else
-      # render :json => [{ :error => "Create User Failed" }], :status => 304
-      console_msg("info", @user.errors.full_messages[0])
+      render json: {error: "Create User Failed"}, status: 304
+      console_msg("error", @user.errors.full_messages[0])
     end
   end
 
@@ -52,8 +39,10 @@ class Api::V1::UsersController < ApplicationController
   def show
     if @user.valid?
       render json: @user, status: 200
+      console_msg("success", "User of id #{@user.id} found")
     else
-      render json: { failure: 'User not found' }
+      render json: { failure: 'User not found' }, status: 404
+      console_msg("error", @user.errors.full_messages[0])
     end
   end
 
@@ -65,20 +54,27 @@ class Api::V1::UsersController < ApplicationController
   # PATCH/PUT /api/v1/users/:id
   def update
     if @user.update(user_params)
-      puts "Record User Updated"
-      # flash[:notifications] = ["UPDATED"]
-      # redirect_to user_path(@user)
+      msg = "User of id #{@user.id} updated"
+
+      render json: {success: msg}, status: 200
+      console_msg("success", msg)
     else
-      flash[:errors] = @user.errors.full_messages
-      # redirect_to edit_user_path
+      render json: {error: "User Update Failed"}, status: 304
+      console_msg("error", @user.errors.full_messages[0])
     end
   end
 
   # DELETE /api/v1/users/:id
   def destroy
-    @user.destroy
-    flash[:notifications] = ["User deleted successfully"]
-    # redirect_to users_path
+    msg = "User of id #{@user.id} has been deleted"
+
+    if @user.destroy
+      render json: {success: msg}, status: 200
+      console_msg("success", msg)
+    else
+      render json: {error: "User Delete Failed"}, status: 304
+      console_msg("error", @user.errors.full_messages[0])
+    end
   end
 
   private

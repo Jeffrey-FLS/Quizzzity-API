@@ -5,7 +5,7 @@ module Shared
 
     symbols = {
         "info" => "\u24D8",
-        "confirm" => "\u2713",
+        "success" => "\u2713",
         "warn" => "\u26A0",
         "error" => "\u2622"
     }
@@ -15,7 +15,7 @@ module Shared
     case level
     when "info"
       puts "\t  #{symbols.fetch(level)} #{msg}".colorize(:light_blue).bold
-    when "confirm"
+    when "success"
       # puts "\t \u2713 #{msg}".colorize(:light_blue).bold
       puts "\t #{symbols.fetch(level)} #{msg}".colorize(:light_blue).bold
     when "warn"
