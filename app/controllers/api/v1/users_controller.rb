@@ -1,5 +1,4 @@
-# require 'colorize'
-# require 'shared_functions.rb'
+
 # load 'shared_functions.rb'
 require 'shared_functions'
 
