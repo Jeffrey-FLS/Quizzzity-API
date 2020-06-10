@@ -12,6 +12,7 @@ class User < ApplicationRecord
             uniqueness: true
   validates :email, presence: true, length: { maximum: 100 }, format: EMAIL_REGEX,
                    uniqueness: true
+  validates :password, presence: true, length: { maximum: 15 }
 
   # Sorting Users
   scope :sorted, -> { order('last_name ASC, first_name ASC') }
