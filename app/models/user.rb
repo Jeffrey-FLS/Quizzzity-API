@@ -17,7 +17,7 @@ class User < ApplicationRecord
   # Sorting Users
   scope :sorted, -> { order('last_name ASC, first_name ASC') }
 
-  def name
-    "#{first_name} #{last_name}"
+  def to_s
+    self.first_name + " " + self.last_name
   end
 end

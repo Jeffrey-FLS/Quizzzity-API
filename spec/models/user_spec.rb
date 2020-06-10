@@ -1,25 +1,44 @@
+# == Schema Information
+#
+# Table name: users
+#
+#  id         :integer          not null, primary key
+#  first_name :string
+#  last_name  :string
+#  email      :string
+#  username   :string
+#  password   :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  # pending "add some examples to (or delete) #{__FILE__}"
 
-  before(:each) {
-    @user = User.create(
-        first_name: "John",
-        last_name: "Doe",
-        email: "john_doe@example.com",
-        username: "johnD7",
-        password: "JD123456"
-    )
-  }
+  before(:each) {@user = FactoryBot.build(:user)}
+
+  # before(:each) {
+  #   @user = User.create(
+  #       first_name: "John",
+  #       last_name: "Doe",
+  #       email: "john_doe@example.com",
+  #       username: "johnD7",
+  #       password: "JD123456"
+  #   )
+  # }
 
   subject { @user }
 
-  it "is user valid with valid attributes" do
+  it "can be created" do
     expect(subject).to be_valid
   end
 
-  context 'User validations with Attributes' do
+  it 'has a to_s instance method' do
+    expect(subject.to_s).to eq("John Doe")
+  end
+
+  context 'validations with Attributes' do
     it "has a first name" do
       expect(subject.first_name).to eq("John")
     end
@@ -41,7 +60,7 @@ RSpec.describe User, type: :model do
     end
   end
 
-  context 'User validations without Attributes' do
+  context 'validations without Attributes' do
     it "invalid without first name" do
       subject.first_name = nil
       expect(subject).to_not be_valid
