@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       resources :users
 
       post "/quizzes", to: "quizzes#create"
+      get '/login', to: 'login#new'
     end
   end
 
