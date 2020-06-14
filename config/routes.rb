@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  # Committing 
+
   namespace :api do
     namespace :v1 do
       resources :quizzes
