@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  # Committing 
+  # Committing
 
   namespace :api do
     namespace :v1 do
@@ -9,7 +9,10 @@ Rails.application.routes.draw do
       resources :users
 
       post "/quizzes", to: "quizzes#create"
-      get '/login', to: 'login#new'
+      post "/login", to: "users#login"
+      # post "/login", to: "auth#login"
+      # post '/login', to: 'auth#login'
+      # get '/login', to: 'login#new'
     end
   end
 

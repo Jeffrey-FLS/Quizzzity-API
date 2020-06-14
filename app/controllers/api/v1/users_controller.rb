@@ -76,6 +76,38 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
+  # TESTING ####################################################################
+
+  def login
+    @user = User.find_by(username: params[:user][:username])
+
+    console_msg("info", params[:user][:username])
+    console_msg("info", params[:user][:password])
+    console_msg("info", @user.attributes)
+    # console_msg("info", @user.attributes[attribute].to_s)
+    #
+    #       console_msg("error", @user.errors.full_messages[0])
+
+
+    # if @user && @user.authenticate(params[:user][:password])
+
+    if @user && @user.password(params[:user][:password])
+      # session[:user_id] = @user.id
+      user = @user.to_s
+      render json: { user: user } , status: 200
+
+      console_msg("success", "User has successfully logged in")
+      # redirect_to root_path
+    else
+      console_msg("error", "ERROR")
+      console_msg("error", @user.errors.full_messages[0])
+      # flash[:errors] = ["You failed to login!!! Loser."]
+      # redirect_to login_path
+    end
+  end
+
+  ##############################################################################
+
   private
 
   def get_user
